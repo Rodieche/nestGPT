@@ -12,14 +12,7 @@ export const prosConsDicusserUseCase = async (openai: OpenAI, { prompt }: Option
             { role: "system", content: `
             Se te dará una pregunta y tu tarea es dar una respuesta con pros y contras,
             la respuesta debe de ser en formato Markdown,
-            los pros y contras deben de estar en una lista,
-            // Ejemplo de salida:
-            //     {
-            //         Comparacion: string,
-            //         pros: string[],
-            //         cons: string[],
-            //         message: string, // Usa emojis y texto para felicitar al usuario con la personalidad de Homero Simpson
-            //     }
+            los pros y contras deben de estar en una lista
             ` },
             { role: 'user', content: prompt }
         ],
