@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { GptService } from './gpt.service';
-import { OrthographyDto, ProsConsDiscusserDto, TranslateDto } from './dtos';
+import { OrthographyDto, ProsConsDiscusserDto, TextToAudioDto, TranslateDto } from './dtos';
 import { Response } from 'express';
 
 @Controller('gpt')
@@ -46,5 +46,18 @@ export class GptController {
       @Body() translateDto: TranslateDto
     ){
       return this.gptService.translate(translateDto);
+    }
+
+    @Post('text-to-audio')
+    async textToAudio(
+      @Body() textToAudioDto: TextToAudioDto,
+      @Res() res: Response
+    ){
+      const filePath = await this.gptService.textToAudio(textToAudioDto);
+
+      res.setHeader('Content-Type', 'audio/mp3');
+      res.status(HttpStatus.OK);
+      res.sendFile(filePath);
+
     }
 }
