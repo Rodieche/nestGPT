@@ -88,7 +88,6 @@ export class GptController {
       @Body() audioToTextDto: AudioToTextDto,
     )  {
 
-      console.log({audioToTextDto});
       return this.gptService.audioToText(file, audioToTextDto);
 
     }
