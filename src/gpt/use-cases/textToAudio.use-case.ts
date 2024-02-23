@@ -3,6 +3,7 @@
 import OpenAI from "openai";
 import * as path from "path";
 import * as fs from "fs";
+import { v4 as uuidv4 } from 'uuid';
 
 
 interface Options {
@@ -25,7 +26,7 @@ export const textToAudioUseCase = async( openai: OpenAI, { prompt, voice }: Opti
     const selectedVoice = voices[voice] ?? 'nova';
 
     const folderPath = path.resolve(__dirname, '../../../generated/audios');
-    const speechFile = path.resolve(`${ folderPath }/${ new Date().getTime() }.mp3`);
+    const speechFile = path.resolve(`${ folderPath }/${ uuidv4() }.mp3`);
 
     fs.mkdirSync( folderPath, { recursive: true } );
 
