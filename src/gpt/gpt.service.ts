@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { orthographyCheckUseCase, prosConsDicusserStreamUseCase, prosConsDicusserUseCase, textToAudioUseCase, translateUseCase } from './use-cases';
+import { audioToTextUseCase, orthographyCheckUseCase, prosConsDicusserStreamUseCase, prosConsDicusserUseCase, textToAudioUseCase, translateUseCase } from './use-cases';
 import { OrthographyDto, ProsConsDiscusserDto, TextToAudioDto, TranslateDto } from './dtos';
 import OpenAI from 'openai';
+import { AudioToTextDto } from './dtos/audio-to-text.dto';
 
 @Injectable()
 export class GptService {
@@ -31,6 +32,13 @@ export class GptService {
 
     async textToAudio({ prompt, voice }: TextToAudioDto){
         return await textToAudioUseCase( this.openai, { prompt, voice } );
+    }
+
+    async audioToText( audioFile: Express.Multer.File, audioToTextDto: AudioToTextDto ){
+
+        const { prompt } = audioToTextDto;
+
+        return await audioToTextUseCase(this.openai, { audioFile, prompt: prompt });
     }
 
 }
