@@ -6,6 +6,9 @@
 4. Ejecutar ```yarn run start:dev```
 
 # Endpoints
-* Orthography: localhost:3000/gpt/pros-cons-discusser
-* Pros Cons Discusser: localhost:3000/gpt/pros-cons-discusser
-* Pros Cons Discusser Stream: localhost:3000/gpt/pros-cons-discusser-stream
+* Orthography: /gpt/pros-cons-discusser
+* Pros Cons Discusser: /gpt/pros-cons-discusser
+* Pros Cons Discusser Stream: /gpt/pros-cons-discusser-stream
+* Audio To Text: /gpt/audio-to-text
+* Text To Audio: /gpt/text-to-audio
+* Translate: /gpt/translate

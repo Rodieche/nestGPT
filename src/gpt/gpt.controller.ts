@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { v4 as uuidv4 } from 'uuid';
-import { Body, Controller, FileTypeValidator, HttpStatus, MaxFileSizeValidator, ParseFilePipe, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, FileTypeValidator, Get, HttpStatus, MaxFileSizeValidator, Param, ParseFilePipe, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { GptService } from './gpt.service';
 import { AudioToTextDto, ImageGenerationDto, OrthographyDto, ProsConsDiscusserDto, TextToAudioDto, TranslateDto } from './dtos';
 import { Response } from 'express';
@@ -98,5 +98,15 @@ export class GptController {
       @Body() imageGenerationDto: ImageGenerationDto
     ){
       return await this.gptService.imageGeneration(imageGenerationDto);
+    }
+
+    @Get('image-generation/:filename')
+    async getGeneratedImage(
+      @Res() res: Response,
+      @Param('filename') fileName: string
+    ){
+      const filePath = this.gptService.getGeneratedImage(fileName);
+      res.status(HttpStatus.OK);
+      res.sendFile(filePath);
     }
 }

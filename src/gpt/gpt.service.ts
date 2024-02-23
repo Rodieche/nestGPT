@@ -1,8 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import * as path from 'path';
+import * as fs from 'fs';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import OpenAI from 'openai';
 import { audioToTextUseCase, imageGenerationUseCase, orthographyCheckUseCase, prosConsDicusserStreamUseCase, prosConsDicusserUseCase, textToAudioUseCase, translateUseCase } from './use-cases';
 import { ImageGenerationDto, OrthographyDto, ProsConsDiscusserDto, TextToAudioDto, TranslateDto } from './dtos';
-import OpenAI from 'openai';
 import { AudioToTextDto } from './dtos/audio-to-text.dto';
 
 @Injectable()
@@ -40,7 +42,15 @@ export class GptService {
     }
 
     async imageGeneration(imageGenerationDto: ImageGenerationDto){
-        return imageGenerationUseCase( this.openai, { ...imageGenerationDto } )
+        return await imageGenerationUseCase( this.openai, { ...imageGenerationDto } )
+    }
+    getGeneratedImage( fileName: string ){
+        const filePath = path.resolve('./','./generated/images/', fileName);
+        const fileExist = fs.existsSync(filePath);
+
+        if(!fileExist) throw new NotFoundException('File not Found');
+
+        return filePath;
     }
 
 }
