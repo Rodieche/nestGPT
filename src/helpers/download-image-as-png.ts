@@ -27,7 +27,7 @@ export const downloadImageAsPng = async(url: string) => {
         .ensureAlpha()
         .toFile(completePath);
 
-    return completePath ;
+    return imageNamePng ;
 }
 
 export const downloadBase64ImageAsPng = async (base64Image: string) => {
@@ -49,6 +49,6 @@ export const downloadBase64ImageAsPng = async (base64Image: string) => {
       .ensureAlpha()
       .toFile(completePath);
   
-    return completePath;
+    return imageNamePng;
   
   }
